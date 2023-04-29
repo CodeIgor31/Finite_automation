@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  root 'vendings#index'
+  post 'vendings/activise', to: 'vendings#activise'
+  post 'vendings/check_num', to: 'vendings#check_num'
+  post 'vendings/check_money', to: 'vendings#check_money'
+  post 'vendings/give_product', to: 'vendings#give_product'
+  post 'vendings/give_sdacha', to: 'vendings#give_sdacha'
 end
