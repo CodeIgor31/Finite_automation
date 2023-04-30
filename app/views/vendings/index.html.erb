@@ -69,6 +69,7 @@
 </table>
 <br>
 <div id = "change">
+<%= $tek%>: Начальное состояние
 <%= form_with url: '/vendings/activise', method: :post do |form| %>
           <p><%= form.submit("Активировать автомат", id: 'btn') %></p>
 <% end %>

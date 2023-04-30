@@ -1,3 +1,11 @@
+<%case tek %>
+<% when "q0" %><%= tek %>: Начальное состояние
+<% when "q1" %><%= tek %>: Состояние готовности к работе
+<% when "q2" %><%= tek %>: Состояние принятия денег
+<% when "q3" %><%= tek %>: Состояние выдачи продукта
+<% when "q4" %><%= tek %>: Состояние выдачи денег
+<% end %>
+
 <% if tek == "q0"%>
   <%= form_with url: '/vendings/activise', method: :post do |form| %>
           <p><%= form.submit("Активировать автомат", id: 'btn') %></p>
@@ -10,10 +18,13 @@
   <% end %>
 <% elsif tek == "q2"%>
   <%= form_with url: '/vendings/check_money', method: :post do |form| %>
-            <p><%= form.label :money, "Внесите деньги(Если хотите отменить, то ничего не вводите и нажмите далее)" %></p>
+            <p><%= form.label :money, "Внесите деньги: #{@need} руб." %></p>
             <p><%= form.number_field :money, placeholder: 'Внесите деньги', class: 'form-control', id: 'money' %></p>
             <p><%= form.submit("Отправить", id: 'btn') %></p>
   <% end %>
+  <%= form_with url: "/vendings/skip", method: :post do |form| %>
+    <%= submit_tag("Отмена", class: "btn btn-danger", id: 'btn') %>
+<% end %>
 <% elsif tek == "q3"%>
 <%= form_with url: '/vendings/give_product', method: :post do |form| %>
           <p><%= form.label "Продукт выдан" %></p>
@@ -21,7 +32,7 @@
 <% end %>
 <% elsif tek == "q4"%>
 <%= form_with url: '/vendings/give_sdacha', method: :post do |form| %>
-          <p><%= form.label "Сдача выдана" %></p>
+          <p><%= form.label "Деньги выданы: #{@sdacha} руб." %></p>
           <p><%= form.submit("Вернуться в начало", id: 'btn') %></p>
 <% end %>
 <% end %>
