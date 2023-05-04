@@ -1,1 +1,8 @@
 <%= turbo_stream.update "change", partial: 'check_form', locals: {tek: $tek[0]}%>
+<%if $tek[0] == "q3"%>
+<turbo-stream action="update" target=<%= "pr#{$number}" %>>
+  <template>
+    X
+  </template>
+</turbo-stream>
+<%end%>

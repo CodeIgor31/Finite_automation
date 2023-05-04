@@ -11,6 +11,7 @@ class VendingsController < ApplicationController
     $third_out = "Отображение на экране меню"
     $four_out = "Повтор"
     i = 1
+    $number = nil
     @hash = {}
     while i <= 48
       @hash[i] = 50+rand(200)
@@ -21,15 +22,17 @@ class VendingsController < ApplicationController
   end
 
   def activise
+    @@hash_for_cl.delete($number.to_i) if $number != nil
     $tek = process_event($tek[0], $c)
   end
 
   def check_num
     @@num = params[:tov_num]
-    if (@@num == nil || @@num == "" || (@@num.to_i > 48 || @@num.to_i < 1))
+    if (@@num == nil || @@num == "" || (@@num.to_i > 48 || @@num.to_i < 1) || @@hash_for_cl[@@num.to_i] == nil)
       $tek = process_event($tek[0], $d)
       return
     else
+      $number = @@num
       $tek = process_event($tek[0], $b)
     end
     @@sum = 0
